@@ -1,1 +1,137 @@
 # Chatbot
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatBot Google Fit</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #34A853, #4285F4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.chat-container {
+    width: 400px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    background: #34A853;
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.user {
+    background: #4285F4;
+    color: white;
+    align-self: flex-end;
+}
+
+.bot {
+    background: #f1f1f1;
+    color: black;
+    align-self: flex-start;
+}
+
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.chat-input button {
+    background: #34A853;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">Asistente Google Fit</div>
+    <div class="chat-messages" id="messages"></div>
+    <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Escribe tu pregunta...">
+        <button onclick="sendMessage()">Enviar</button>
+    </div>
+</div>
+
+<script>
+function botResponse(input) {
+    input = input.toLowerCase();
+
+    if (input.includes("qué es google fit")) {
+        return "Google Fit es una plataforma de Google que te ayuda a monitorear tu actividad física y salud.";
+    }
+    if (input.includes("para qué sirve")) {
+        return "Sirve para registrar pasos, frecuencia cardíaca, calorías quemadas y actividad diaria.";
+    }
+    if (input.includes("cómo funciona")) {
+        return "Funciona recopilando datos de sensores de tu móvil o smartwatch para analizar tu actividad.";
+    }
+    if (input.includes("descargar")) {
+        return "Puedes descargar Google Fit desde Google Play Store.";
+    }
+    return "Lo siento, solo puedo responder preguntas básicas sobre Google Fit.";
+}
+
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const messages = document.getElementById("messages");
+
+    if (input.value.trim() === "") return;
+
+    const userMsg = document.createElement("div");
+    userMsg.className = "message user";
+    userMsg.innerText = input.value;
+    messages.appendChild(userMsg);
+
+    const botMsg = document.createElement("div");
+    botMsg.className = "message bot";
+    botMsg.innerText = botResponse(input.value);
+    
+    setTimeout(() => {
+        messages.appendChild(botMsg);
+        messages.scrollTop = messages.scrollHeight;
+    }, 500);
+
+    input.value = "";
+}
+</script>
+
+</body>
+</html>
